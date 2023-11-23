@@ -5,24 +5,31 @@ import { createSelector } from "reselect";
 // Select the relevant parts of the state
 const selectFileFoldersState = (state) => state.filefolders;
 const selectUserFolders = (state) => selectFileFoldersState(state).userFolders;
+const selectUserFilesState = (state) => selectFileFoldersState(state).userFiles;
 
 // Create a memoized selector using reselect
 const selectFilteredUserFolders = createSelector(
   [selectUserFolders],
   (userFolders) => userFolders.filter((folder) => folder.data.parent === "root")
 );
+
+const selectFilteredUserFiles = createSelector(
+  [selectUserFilesState], // Fix this line
+  (userFiles) => userFiles.filter((file) => file.data.parent === "root")
+);
 const HomeComponent = () => {
 
 //const folders = ["New folder", "new folder 2"];
-    const files = [
+    /*const files = [
       {data: {name:"New file"} }, 
       {data: {name:"new file 2"} },
-    ];
+    ];*/
 
-    const { isLoading, userFolders } = useSelector(
+    const { isLoading, userFolders, userFiles } = useSelector(
       (state) => ({
         isLoading: selectFileFoldersState(state).isLoading,
         userFolders: selectFilteredUserFolders(state),
+        userFiles: selectFilteredUserFiles(state),
       }),
       shallowEqual
     );
@@ -39,7 +46,11 @@ const HomeComponent = () => {
               type={"folder"}
               items={userFolders}
             />
-            <ShowItems title={"Created Files"} type={"file"} items={files}/>
+            <ShowItems 
+            title={"Created Files"} 
+            type={"file"} 
+            items={userFiles.filter((file) => file.data.url === null)}
+            />
           </> 
         )
       }

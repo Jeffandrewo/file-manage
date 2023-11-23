@@ -22,14 +22,22 @@ const selectChildFolders = createSelector(
     (userFolders, folderId) =>
         userFolders.filter((folder) => folder.data.parent === folderId)
 );
+
+const selectChildFiles = createSelector(
+  [selectFileFoldersState, selectChildFolders, (_, { folderId }) => folderId],
+  (filefolders, childFolders, folderId) =>
+    filefolders.userFiles.filter((file) => file.data.parent === folderId)
+);
+
 const FolderComponent = () => {
 
     const { folderId } = useParams();
 
-    const { currentFolderData, childFolders } = useSelector(
+    const { currentFolderData, childFolders, childFiles } = useSelector(
       (state) => ({
           currentFolderData: selectCurrentFolderData(state, { folderId }),
           childFolders: selectChildFolders(state, { folderId }),
+          childFiles: selectChildFiles(state, { folderId}),
       }),
       shallowEqual
   );
@@ -40,11 +48,26 @@ const FolderComponent = () => {
       {
         childFolders.length > 0 ? (
           <>
-            <ShowItems 
-              title={"Created Folders"} 
-              type={"folder"}
-              items={childFolders}
-            />
+            {
+              childFolders.length > 0 && (
+                <ShowItems 
+                title={"Created Folders"} 
+                type={"folder"}
+                items={childFolders}
+              />
+              )
+            }
+            
+            {
+              childFiles.length > 0 && (
+                <ShowItems 
+                  title={"Created Files"} 
+                  type={"file"}
+                  items={childFiles.filter((file) => file.data.url === null)}
+              />
+              )
+            }
+           
           </>
         ): (
           <p className="text-center my-5">

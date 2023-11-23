@@ -20,7 +20,19 @@ const setLoading = (payload) => ({
 const setChangeFolder = (payload) => ({
     type: types.CHANGE_FOLDER,
     payload,
-})
+});
+
+// files
+
+const addFiles = (payload) => ({
+    type: types.ADD_FILES,
+    payload,
+});
+
+const addFile = (payload) => ({
+    type: types.CREATE_FILE,
+    payload,
+});
 
 // actionc creators
 
@@ -60,6 +72,36 @@ export const changeFolder = (folderId) => (dispatch) => {
 }
 
 
+// action creator for files
+
+export const getFiles =(userId) => (dispatch) => {
+    fire
+    .firestore()
+    .collection("files")
+    .where("userId", "==", userId)
+    .get()
+    .then(async (files) => {
+        const filesData = await files.docs.map((file) => ({
+            data: file.data(),
+            docId: file.id,
+        }));
+        dispatch(setLoading(false));
+        dispatch(addFiles(filesData));
+        
+    });
+}
+
+export const createFile = (data, setSuccess) => (dispatch) => {
+    fire.firestore().collection("files").add(data).then(async (file) => {
+        const fileData = await (await file.get()).data();
+        const fileId = file.id;
+        dispatch(addFile ({ data: fileData, docId: fileId }));
+        alert("File created successfully!");
+        setSuccess(true);
+    }).catch(() => {
+        setSuccess(false);
+    });
+};
 
 
 //error data: folder.data() || {},
