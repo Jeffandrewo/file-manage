@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { changeFolder } from "../../../redux/actionCreators/fileFoldersActionCreator";
 
-const SubBar = ({ setIsCreateFolderModalOpen, setIsCreateFileModalOpen }) => {
+//have changes added showSubBar
+const SubBar = ({ setIsCreateFolderModalOpen, setIsCreateFileModalOpen, showSubBar }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -25,7 +26,8 @@ const SubBar = ({ setIsCreateFolderModalOpen, setIsCreateFileModalOpen }) => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg mt-2 navbar-light bg-white py-2">
+    //have changes added showSubBar
+    <nav className={`navbar navbar-expand-lg mt-2 navbar-light bg-white py-2 ${showSubBar ? '' : 'd-none'}`}>
         <nav className="ms-5" aria-label="breadcrumb">
             <ol className="breadcrumb dd-flex align-items-center">
             {currentFolder !== "root" ? (

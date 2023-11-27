@@ -15,7 +15,7 @@ const ShowItems = ({title, items, type}) => {
             dispatch(changeFolder(itemId))
             navigate(`/dashboard/folder/${itemId}`);
         }else{
-            alert("File clicked!");
+            navigate(`/dashboard/file/${itemId}`);
         }
     };
 

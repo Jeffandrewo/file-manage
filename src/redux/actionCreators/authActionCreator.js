@@ -47,6 +47,8 @@ export const signUpUser = (name, email, password, setSuccess) => (dispatch) => {
                 })
             );
             setSuccess(true);
+            // Reload the page after successful account creation
+            window.location.href = "/";
         }).catch((error) => {
             console.log(error);
         })
@@ -66,6 +68,8 @@ export const signUpUser = (name, email, password, setSuccess) => (dispatch) => {
 export const SignOutUser = () => (dispatch) => {
     fire.auth().signOut().then(() => {
         dispatch(logoutUser());
+        // Reload the page after signing out newly added
+        window.location.reload();
     });
 };
 

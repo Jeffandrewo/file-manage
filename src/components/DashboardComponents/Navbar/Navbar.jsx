@@ -11,6 +11,11 @@ const Navbar = () => {
   const {isAuthenticated , user } = useSelector(state => state.auth);
   const dispatch = useDispatch();
 
+  const handleHomeClick = () => {
+    // Reload the page when the "Home" link is clicked
+    window.location.reload();
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-lg p-3">
       <Link className="navbar-brand ms-5" to="/dashboard">
@@ -27,7 +32,7 @@ const Navbar = () => {
                 </p>
               </li>
               <li className="nav-item mx-2">
-                <Link  className="btn btn-primary" to="/">
+                <Link  className="btn btn-primary" onClick={handleHomeClick}>
                   Home
                 </Link>
               </li>
