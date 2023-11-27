@@ -4,8 +4,8 @@ import { duotoneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 import "./CodeEditor.css";
 
-const CodeEditor = ({fileName}) => {
-    const [data, setData] = useState(`\n`);
+const CodeEditor = ({fileName, data, setData}) => {
+    //const [data, setData] = useState(`\n`);
 
     const codes = {
         html: "xml",
@@ -49,7 +49,7 @@ const CodeEditor = ({fileName}) => {
             <textarea 
                 className="code-input w-100"
                 value={data}
-                onKeyDown={handleKeyDown}
+                //onKeyDown={handleKeyDown}
                 onChange={(e) => setData(e.target.value)}
             />
             <pre className="code-output">
