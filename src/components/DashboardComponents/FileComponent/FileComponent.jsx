@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Header from "./Header";
 import { shallowEqual, useSelector } from "react-redux";
 import CodeEditor from "./CodeEditor";
@@ -8,6 +8,9 @@ import { useEffect, useState } from "react";
 const FileComponent = () => {
     const { fileId } = useParams()
     const [fileData, setFileData] = useState("");
+    //const [prevFileData, setPrevFileData] = useState("");
+    
+    const navigate = useNavigate();
 
     const {currentFile} = useSelector((state) => ({
         currentFile: state.filefolders.userFiles.find(
@@ -20,6 +23,7 @@ const FileComponent = () => {
   useEffect(() => {
     if (currentFile && currentFile.data) {
         setFileData(currentFile.data.data);
+        //setPrevFileData(currentFile.data.data)
     }
   }, [currentFile]);
 
@@ -29,6 +33,11 @@ const FileComponent = () => {
 
   return (
     <div>
+      {
+        fileData !== null ? 
+        (
+          <>
+      
         <Header fileName = {fileName} 
           fileData={fileData} 
           prevFileData={currentFile?.data?.data}
@@ -36,10 +45,21 @@ const FileComponent = () => {
         />
         
         <CodeEditor fileName={fileName} data={fileData} setData={setFileData} />
-       
+        </>
+      ) : (
+        <>
+        <h1 className="display-1 my-5 text-center">
+          Uploaded files preview coming soon
+        </h1>
+        <button className="btn btn-primary" onClick={() => navigate(-1)}>
+          Back
+        </button>
+        </>
+      )}
     </div>
-  )
-}
+    
+  );
+};
 
 export default FileComponent
 

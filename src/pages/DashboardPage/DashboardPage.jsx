@@ -9,12 +9,14 @@ import { changeFolder, getFiles, getFolders } from '../../redux/actionCreators/f
 import FolderComponent from '../../components/DashboardComponents/FolderComponent/FolderComponent';
 import CreateFile from '../../components/DashboardComponents/CreateFile/CreateFile';
 import FileComponent from '../../components/DashboardComponents/FileComponent/FileComponent';
+import UploadFile from '../../components/DashboardComponents/UploadFile/UploadFile';
 
 
 const DashboardPage = () => {
 
   const [isCreateFolderModalOpen, setIsCreateFolderModalOpen] = useState(false);
   const [isCreateFileModalOpen, setIsCreateFileModalOpen] = useState(false);
+  const [isFileUploadModalOpen, setIsFileUploadModalOpen] = useState(false);
 
   //showsubbar issue
   const [showSubBar, setShowSubBar] = useState(true);
@@ -59,9 +61,14 @@ const DashboardPage = () => {
         <CreateFolder setIsCreateFolderModalOpen={setIsCreateFolderModalOpen} />
       )
     }
-     {
+    {
       isCreateFileModalOpen && (
         <CreateFile setIsCreateFileModalOpen={setIsCreateFileModalOpen} />
+      )
+    }
+    {
+      isFileUploadModalOpen && (
+        <UploadFile setIsFileUploadModalOpen={setIsFileUploadModalOpen} />
       )
     }
       <Navbar />
@@ -70,7 +77,9 @@ const DashboardPage = () => {
           <SubBar 
             setIsCreateFolderModalOpen={setIsCreateFolderModalOpen}
             setIsCreateFileModalOpen={setIsCreateFileModalOpen}
+            setIsFileUploadModalOpen={setIsFileUploadModalOpen}
             showSubBar={showSubBar}
+            
           />
         )
       }

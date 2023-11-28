@@ -67,6 +67,16 @@ const FolderComponent = () => {
               />
               )
             }
+
+            {
+              childFiles.length > 0 && (
+                <ShowItems 
+                  title={"Uploaded Files"} 
+                  type={"file"}
+                  items={childFiles.filter((file) => file.data.data === null)}
+              />
+              )
+            }
            
           </>
         ): (

@@ -51,6 +51,11 @@ const HomeComponent = () => {
             type={"file"} 
             items={userFiles.filter((file) => file.data.url === null)}
             />
+            <ShowItems 
+            title={"Uploaded Files"} 
+            type={"file"} 
+            items={userFiles.filter((file) => file.data.data === null)}
+            />
           </> 
         )
       }
