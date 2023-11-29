@@ -2,6 +2,7 @@ import React from 'react'
 import { signInUser } from '../../redux/actionCreators/authActionCreator';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import {toast} from "react-toastify";
 
 const LoginForm = () => {
 
@@ -15,7 +16,7 @@ const LoginForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!email || !password){
-            alert("Please fill in all fields");
+            toast.error("Please fill in all fields");
             return;
         }
         
