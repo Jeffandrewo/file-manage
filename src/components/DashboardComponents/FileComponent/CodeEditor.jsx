@@ -24,7 +24,7 @@ const CodeEditor = ({ fileName, data, setData }) => {
   };
 
   const handleKeyDown = (evt) => {
-    let value = data,
+    let value = content,
       selStartPos = evt.currentTarget.selectionStart;
 
     console.log(evt.currentTarget);
@@ -48,13 +48,13 @@ const CodeEditor = ({ fileName, data, setData }) => {
         <textarea
           className="code-input w-100"
           value={data}
-          onKeyDown={handleKeyDown}
+          //onKeyDown={handleKeyDown}
           onChange={(e) => setData(e.target.value)}
         />
         <pre className="code-output">
           <SyntaxHighlighter
             language={codes[fileName.split(".")[1]]}
-            showLineNumbers={true}
+            showLineNumbers
             style={duotoneLight}
             wrapLines
             startingLineNumber={1}
