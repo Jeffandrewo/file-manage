@@ -164,10 +164,10 @@ export const uploadFile = (file, data, setSuccess) => (dispatch) => {
       const progress = Math.round(
         (snapshot.bytesTransferred / snapshot.totalBytes) * 100
       );
-      console.log("Uploading" + progress + "%");
+      toast.success("Uploading" + progress + "%");
     },
     (error) => {
-      console.log(error);
+      toast.error(error);
     },
     async () => {
       const fileUrl = await uploadFileRef.getDownloadURL();

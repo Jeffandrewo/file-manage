@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Login, Register, HomePage, DashboardPage, Reset } from "./pages";
 import { checkIsLoggedIn } from "./redux/actionCreators/authActionCreator";
 import { useEffect } from "react";
+import GroupsComponent from "./components/DashboardComponents/GroupsComponent/GroupsComponent";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/reset" element={<Reset />} />
         <Route path="/dashboard/*" element={<DashboardPage />} />
+        <Route path="/groups" element={<GroupsComponent />} />
       </Routes>
     </div>
   );

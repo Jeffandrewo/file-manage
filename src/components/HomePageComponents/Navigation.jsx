@@ -93,6 +93,11 @@ const NavigationComponent = () => {
                       Delete Account
                     </button>
                   </li>
+                  <li>
+                    <Link className="dropdown-item" to="/groups">
+                      Groups
+                    </Link>
+                  </li>
                 </ul>
               </li>
             </>

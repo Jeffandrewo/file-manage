@@ -55,6 +55,7 @@ const NavigationComponent = () => {
                   <span className="text-primary fw-bold">
                     {user.displayName}
                   </span>
+                  
                 </p>
               </li>
               <li className="nav-item mx-3">

@@ -3,7 +3,7 @@ import { NavigationComponent } from "../../components/HomePageComponents";
 import { Link } from "react-router-dom";
 import "./HomePage.css";
 import useState from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import fire from "../../API/firebase";
 import { toast } from "react-toastify";
 
@@ -19,7 +19,7 @@ const HomePage = () => {
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [message, setMessage] = React.useState("");
-
+  const { isAuthenticated } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const handleSendMessage = (e) => {
@@ -57,9 +57,11 @@ const HomePage = () => {
               <br />
               Easily As A Team
             </h2>
-            <Link to="/register" className="home-btn">
-              Get Started
-            </Link>
+            {!isAuthenticated && (
+              <Link to="/register" className="home-btn">
+                Get Started
+              </Link>
+            )}
           </div>
           <div className="home-img">
             <img src={Home} alt="FileFolio Team Management" />
@@ -78,9 +80,11 @@ const HomePage = () => {
               in efficient file and project management, enhancing work and study
               environments.
             </p>
-            <Link to="/register" className="home-btn">
-              Get Started
-            </Link>
+            {!isAuthenticated && (
+              <Link to="/register" className="home-btn">
+                Get Started
+              </Link>
+            )}
           </div>
           <div className="overview-img">
             <img src={Overview} alt="FileFolio Team Management" />
