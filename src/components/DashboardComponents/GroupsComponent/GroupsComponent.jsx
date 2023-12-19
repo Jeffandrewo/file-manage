@@ -13,7 +13,7 @@ const GroupsComponent = () => {
       <Link to="/">
         <button className="btn btn-primary">Back to Home</button>
       </Link>
-    
+
       
     </div>
   );
