@@ -5,12 +5,12 @@ import "firebase/compat/storage";
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAq2LhqCLegg6o3H49AbRfWFD9yUsVs53Q",
-  authDomain: "react-firebase-system.firebaseapp.com",
-  projectId: "react-firebase-system",
-  storageBucket: "react-firebase-system.appspot.com",
-  messagingSenderId: "864505214611",
-  appId: "1:864505214611:web:f50ef3eeac3b005f467f66"
+  apiKey: import.meta.env.VITE_apiKey,
+  authDomain: import.meta.env.VITE_authDomain,
+  projectId: import.meta.env.VITE_projectId,
+  storageBucket: import.meta.env.VITE_storageBucket,
+  messagingSenderId: import.meta.env.VITE_messagingSenderId,
+  appId: import.meta.env.VITE_appId,
 };
 // Initialize Firebase
 const fire = firebase.initializeApp(firebaseConfig);
