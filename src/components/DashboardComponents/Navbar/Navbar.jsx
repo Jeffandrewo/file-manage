@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { SignOutUser } from "../../../redux/actionCreators/authActionCreator";
 import { deleteAccountUser } from "../../../redux/actionCreators/authActionCreator";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import "./Navbar.css";
 
 const NavigationComponent = () => {
@@ -14,6 +16,8 @@ const NavigationComponent = () => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(false); // State to manage modal visibility
+  const [isFileUploadModalOpen, setIsFileUploadModalOpen] = useState(false);
+  const [file, setFile] = useState(null);
 
   const handleWelcomeClick = () => {
     // Open the welcome modal when "Welcome" text is clicked
@@ -23,6 +27,27 @@ const NavigationComponent = () => {
   const closeWelcomeModal = () => {
     // Close the welcome modal
     setIsWelcomeModalOpen(false);
+  };
+
+  const handleFileUploadClick = () => {
+    // Open the file upload modal
+    setIsFileUploadModalOpen(true);
+  };
+
+  const closeFileUploadModal = () => {
+    // Close the file upload modal
+    setIsFileUploadModalOpen(false);
+    // Clear the selected file when modal is closed
+    setFile(null);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle file upload logic here
+    console.log("File submitted:", file);
+    // Add your file upload logic (e.g., API call, dispatching actions, etc.)
+    // Close the modal after handling the file
+    closeFileUploadModal();
   };
 
   React.useEffect(() => {
@@ -48,7 +73,7 @@ const NavigationComponent = () => {
         <img src={Logo} alt="FileFolio" style={{ width: "40px" }} />
         <span className="fw-bold">File</span>Folio
       </Link>
-
+  
       <button
         className="navbar-toggler"
         type="button"
@@ -56,18 +81,18 @@ const NavigationComponent = () => {
       >
         <span className="navbar-toggler-icon"></span>
       </button>
-
+  
       <div className={`collapse navbar-collapse ${isMenuOpen ? "show" : ""}`}>
         <ul className="navbar-nav ms-auto me-5">
           {isAuthenticated ? (
             <>
               <li className="nav-item mx-3">
-                <p className="my-0 mt-2 mx-2">
+                <p
+                  className="my-0 mt-2 mx-2 welcome-text"
+                  onClick={handleWelcomeClick}
+                >
                   <span className="text-dark">Welcome, </span>
-                  <span className="text-primary fw-bold">
-                    {user.displayName}
-                  </span>
-                  
+                  <span className="fw-bold">{user.displayName}</span>
                 </p>
               </li>
               <li className="nav-item mx-3">
@@ -146,31 +171,26 @@ const NavigationComponent = () => {
           )}
         </ul>
       </div>
+  
       {isWelcomeModalOpen && (
         <div className="col-md-12 position-fixed top-0 left-0 w-100 h-100 welcome-modal">
           <div className="row align-items-center justify-content-center">
             <div className="col-md-4 mt-5 bg-white rounded p-4">
               <div className="d-flex justify-content-between">
-                
-                <h4>Account details:</h4>
-                
+                <h4>Account Details:</h4>
                 <button className="btn" onClick={closeWelcomeModal}>
                   <FontAwesomeIcon
                     icon={faTimes}
-                    className="text-black "
+                    className="text-black"
                     size="sm"
                   />
                 </button>
               </div>
               <hr />
               <div className="d-flex flex-column align-items-center">
-        <p style={{ textAlign: 'center' }}>
-          <strong>Username:</strong> {user.displayName}
-        </p>
-        <p>
-          <strong>Email:</strong> {user.email}
-        </p>
-      </div>
+                <p>{`Username: ${user.displayName}`}</p>
+                <p>{`Email: ${user.email}`}</p>
+              </div>
             </div>
           </div>
         </div>

@@ -1,14 +1,14 @@
 .welcome-modal {
 
-    background: rgba(0, 0, 0, 0.5); /* Black background color with some transparency */
-    color: rgb(0, 0, 0); /* White text color */
-    z-index: 1000;
-  }
-  
-  .welcome-modal h4 {
-    color: rgb(0, 0, 0); /* White text color for the heading */
-  }
-  
-  .welcome-modal button {
-    color: rgb(0, 0, 0); /* White text color for the close button */
-  }
+  background: rgba(0, 0, 0, 0.5); /* Black background color with some transparency */
+  color: rgb(0, 0, 0); /* White text color */
+  z-index: 1000;
+}
+
+.welcome-modal h4 {
+  color: rgb(0, 0, 0); /* White text color for the heading */
+}
+
+.welcome-modal button {
+  color: rgb(0, 0, 0); /* White text color for the close button */
+}
