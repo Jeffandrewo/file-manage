@@ -86,25 +86,34 @@ export const changeFolder = (folderId) => (dispatch) => {
   dispatch(setChangeFolder(folderId));
 };
 
-export const deleteFolderAction = (folderId) => (dispatch) => {
-  const confirmDelete = window.confirm(
-    "Are you sure you want to delete the folder?"
-  );
+export const deleteFolderAction = (folderId) => async (dispatch) => {
+  const confirmDelete = window.confirm("Are you sure you want to delete the folder?");
+
   if (confirmDelete) {
-    fire
-      .firestore()
-      .collection("folders")
-      .doc(folderId)
-      .delete()
-      .then(() => {
-        dispatch(deleteFolder(folderId));
-        toast.success("Folder deleted successfully!");
-      })
-      .catch(() => {
-        toast.error("Something went wrong!");
-      });
+    try {
+      // Fetch the files associated with the folder
+      const filesSnapshot = await fire
+        .firestore()
+        .collection("files")
+        .where("parent", "==", folderId)
+        .get();
+
+      // Now, delete the folder
+      await fire.firestore().collection("folders").doc(folderId).delete();
+
+      // Dispatch the action to update the Redux state
+      dispatch(deleteFolder(folderId));
+      toast.success("Folder deleted successfully!");
+
+      // Note: The associated files are not deleted in this version
+      // If you want to delete files as well, add code here
+    } catch (error) {
+      console.error("Error deleting folder and files:", error);
+      toast.error("Something went wrong!");
+    }
   }
 };
+
 // action creator for files
 
 export const getFiles = (userId) => (dispatch) => {
